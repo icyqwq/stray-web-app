@@ -1,6 +1,6 @@
 # stray-web-app
 
-This template should help get you started developing with Vue 3 in Vite.
+Node v18.18.0
 
 ## Recommended IDE Setup
 
