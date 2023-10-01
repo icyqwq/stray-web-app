@@ -1,7 +1,7 @@
 <template>
 	<div class="container" :class="{ 'hovered': hover }" @mouseover="hover = true" @mouseleave="hover = false" @touchstart="hover = true">
 		<span class="title">{{ title }}</span>
-		<input :id="title" type="range" class="slider" :value="modelValue" @input="$emit('update:modelValue', Number($event.target.value))"/>
+		<input :id="title" type="string" class="input" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
 	</div>
 </template>
   
@@ -14,8 +14,8 @@ export default {
 			default: "Default Title"
 		},
 		modelValue: {
-			type: Number,
-			default: 0
+			type: String,
+			default: ""
 		},
 	},
 	mounted() {
@@ -28,9 +28,7 @@ export default {
 		'update:modelValue'
 	],
 	watch: {
-		hover(val) {
 
-		}
 	},
 	data() {
 		return {
@@ -57,6 +55,7 @@ export default {
 	border: 5px solid transparent;
 	transition: all 0.3s ease;
 	--slider-color: white;
+	--text-color: black;
 	width: 100%;
 	padding: 10px;
 	flex-wrap: wrap;
@@ -67,6 +66,7 @@ export default {
 	color: black;
 	box-shadow: 0 0 10px white;
 	--slider-color: black;
+	--text-color: white;
 }
 
 .title {
@@ -75,50 +75,30 @@ export default {
 	flex-basis: 25%;
 }
 
-.slider {
+.input {
 	flex: 4;
 	appearance: none;
 	outline: none;
 	background: transparent;
-	height: 6px;
-	/* margin-left: 10vw; */
+	height: 30px;
 	background-color: var(--slider-color);
-}
-
-.slider::-webkit-slider-thumb {
-	appearance: none;
-	width: 30px;
-	height: 20px;
-	background: var(--slider-color);
-	cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-	width: 20px;
-	height: 20px;
-	background: var(--slider-color);
-	cursor: pointer;
-}
-
-.slider::-ms-thumb {
-	width: 20px;
-	height: 20px;
-	background: var(--slider-color);
-	cursor: pointer;
+	color: var(--text-color);
+	font-family: 'Maza-Bold', sans-serif;
+	font-size: 2vmax;
 }
 
 @media (orientation: portrait) {
-	/* .container {
+	.container {
 		flex-direction: column;
 		align-items: flex-start;
-	} */
+	}
 	.title {
 		width: 100%;
 		flex-basis: 100%;
 		margin-bottom: 10px;
 	}
 
-	.slider {
+	.input {
 		width: 100%;
 		flex-basis: 100%;
 		margin-left: 0px;
