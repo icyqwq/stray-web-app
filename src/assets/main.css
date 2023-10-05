@@ -11,6 +11,40 @@ body, html {
   overflow-y: hidden;
 }
 
+.item-container {
+  font-size: 2vmax;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: transparent;
+	color: white;
+	border: 5px solid transparent;
+	transition: all 0.3s ease;
+	--bg-color: white;
+	--text-color: black;
+	width: 100%;
+	padding: 10px;
+	flex-wrap: wrap;
+  border-radius: 5px;
+  backdrop-filter: blur(0px);
+  background-color: rgba(255, 255, 255, 0);
+  margin-bottom: 10px;
+}
+
+.item-container.hovered {
+	background-color: white;
+	color: black;
+	box-shadow: 0 0 10px white;
+	--bg-color: black;
+	--text-color: white;
+}
+
+.item-title {
+	flex: 1;
+	white-space: nowrap;
+	flex-basis: 25%;
+}
+
 #app {
   background-color: black;
   background-image: url('@/assets/bg.jpg');
@@ -30,5 +64,12 @@ body, html {
     display: flex;
     place-items: center;
   }
+}
 
+@media (orientation: portrait) {
+	.item-container {
+		
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.1);
+	}
 }

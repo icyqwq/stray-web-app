@@ -6,9 +6,11 @@
         <span style="font-size: 3vmax;">SETTING</span>
       </router-link>
     </div>
-    <SliderItem :title="'SLIDER ITEM'" v-model="slider_value" style="font-size: 2vmax;"/>
-    <SliderItem :title="'SLIDER ITEM2'" v-model="slider_value2" style="font-size: 2vmax;"/>
-    <InputItem :title="'INPUT ITEM'" v-model="input_value" style="font-size: 2vmax;"/>
+    <SliderItem :title="'SLIDER ITEM'" v-model="slider_value" @click="onClick"/>
+    <SliderItem :title="'SLIDER ITEM2'" v-model="slider_value2" />
+    <InputItem :title="'INPUT ITEM'" v-model="input_value" />
+    <SelectItem :title="'SELECT ITEM'" v-model="sel_value" :options="options" />
+    <CheckboxItem :title="'CHECKBOX ITEM'" v-model="check_value" />
   </div>
   
 </template>
@@ -16,6 +18,8 @@
 <script>
 import SliderItem from '@/components/SliderItem.vue';
 import InputItem from '@/components/InputItem.vue';
+import SelectItem from '@/components/SelectItem.vue';
+import CheckboxItem from '@/components/CheckboxItem.vue';
 
 export default {
   data() {
@@ -23,7 +27,31 @@ export default {
       title: 'SETTING 1',
       slider_value: 50,
       slider_value2: 60,
-      input_value: ""
+      input_value: "",
+      sel_value: "",
+      check_value: true,
+      options: [
+        {
+          value: 'value 1',
+          label: 'label 1'
+        },
+        {
+          value: 'value 2',
+          label: 'label 2'
+        },
+        {
+          value: 'value 3',
+          label: 'label 3'
+        },
+        {
+          value: 'value 4',
+          label: 'label 4'
+        },
+        {
+          value: 'value 5',
+          label: 'label 5'
+        },
+      ]
     };
   },
   computed: {
@@ -32,6 +60,8 @@ export default {
   components: {
     SliderItem,
     InputItem,
+    SelectItem,
+    CheckboxItem
   },
   methods: {
     onSliderChanged(e) {
@@ -39,10 +69,18 @@ export default {
     }
   },
   watch: {
-    slider_value(newVal, oldVal) {
-
+    sel_value(newVal, oldVal) {
+      console.log(newVal, oldVal)
     },
+    check_value(newVal, oldVal) {
+      console.log(newVal, oldVal)
+    }
   },
+  methods: {
+    onClick() {
+      console.log('onClick')
+    }
+  }
 };
 </script>
 
@@ -59,12 +97,17 @@ export default {
 }
 
 .nav-back a{
+  position: relative;
   margin: 10px;
   font-size: large;
   text-decoration: none;
   color: white;
   display: flex;
   align-items: center;
+}
+
+.nav-back:active {
+    transform: translateY(5px);
 }
 
 @media (orientation: portrait) {
