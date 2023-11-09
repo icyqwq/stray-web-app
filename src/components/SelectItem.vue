@@ -34,7 +34,7 @@ export default {
 	},
 
 	setup(props, { emit }) {
-		const currentIndex = ref(0);
+		const currentIndex = ref(Math.floor(props.options.length / 2));
 
 		if (!props.modelValue && props.options.length > 0) {
 			emit('update:modelValue', props.options[0]['value']);
@@ -64,12 +64,12 @@ export default {
 		};
 	},
 
-	mounted() {
-		window.addEventListener('touchstart', this.releaseHover);
-	},
-	beforeDestroy() {
-		window.removeEventListener('touchstart', this.releaseHover);
-	},
+	// mounted() {
+	// 	window.addEventListener('touchstart', this.releaseHover);
+	// },
+	// beforeDestroy() {
+	// 	window.removeEventListener('touchstart', this.releaseHover);
+	// },
 	emits: [
 		'update:modelValue'
 	],

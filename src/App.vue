@@ -14,7 +14,7 @@
 
 <style>
 .slide-fade-enter-active, .slide-fade-leave-active {
-  transition: transform 0.5s, opacity 0.5s;
+  transition: transform 0.3s, opacity 0.3s;
 }
 
 /* This is the starting state for entering */

@@ -35,12 +35,12 @@ export default {
 			default: false
 		},
 	},
-	mounted() {
-		window.addEventListener('touchstart', this.releaseHover);
-	},
-	beforeDestroy() {
-		window.removeEventListener('touchstart', this.releaseHover);
-	},
+	// mounted() {
+	// 	window.addEventListener('touchstart', this.releaseHover);
+	// },
+	// beforeDestroy() {
+	// 	window.removeEventListener('touchstart', this.releaseHover);
+	// },
 	emits: [
 		'update:modelValue'
 	],

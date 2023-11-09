@@ -1,7 +1,7 @@
 <template>
 	<div class="item-container" :class="{ 'hovered': hover }" @mouseover="hover = true" @mouseleave="hover = false" @touchstart="hover = true">
 		<span class="item-title">{{ title }}</span>
-		<input :id="title" type="string" class="input" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
+		<input type="time" class="input" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"/>
 	</div>
 </template>
   
@@ -18,12 +18,6 @@ export default {
 			default: ""
 		},
 	},
-	// mounted() {
-	// 	window.addEventListener('touchstart', this.releaseHover);
-	// },
-	// beforeDestroy() {
-	// 	window.removeEventListener('touchstart', this.releaseHover);
-	// },
 	emits: [
 		'update:modelValue'
 	],
@@ -34,17 +28,6 @@ export default {
 		return {
 			hover: false,
 		};
-	},
-	methods: {
-		releaseHover(e) {
-			try {
-				if (e.target.attributes[1].nodeValue != this.title) {
-					this.hover = false
-				}
-			} catch (error) {
-				this.hover = false
-			}
-		},
 	},
 };
 </script>
@@ -64,20 +47,21 @@ export default {
 	border: none;
 }
 
+input[type="time"]::-webkit-calendar-picker-indicator{
+  filter: var(--svg-filter)
+}
+
 @media (orientation: portrait) {
 	.item-container {
 		flex-direction: column;
 		align-items: flex-start;
 		position: relative;
 	}
-
-	
 	.item-title {
 		width: 100%;
 		flex-basis: 100%;
 		margin-bottom: 10px;
 	}
-
 	.input {
 		width: 100%;
 		flex-basis: 100%;

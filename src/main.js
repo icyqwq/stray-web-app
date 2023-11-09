@@ -7,7 +7,8 @@ import en from '@/local/en'
 
 import App from './App.vue'
 import router from './router'
-
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 // import 'vuetify/styles'
 // import { createVuetify } from 'vuetify'
 // import { VSlider } from 'vuetify/components/VSlider'
@@ -30,7 +31,7 @@ const i18n = createI18n({
 })
 
 const app = createApp(App)
-
+app.use(VueAxios, axios)
 app.use(i18n)
 app.use(createPinia())
 app.use(router)

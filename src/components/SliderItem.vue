@@ -7,7 +7,7 @@
 		</div>
 
 		<input v-if="isPortrait" :id="title" type="range" class="slider" :value="modelValue" :min="min" :max="max"
-			:step="step" @input="$emit('update:modelValue', Number($event.target.value))" @touchstart="onInput"/>
+			:step="step" @input="$emit('update:modelValue', Number($event.target.value))" />
 
 		<span v-if="!isPortrait" class="item-title">{{ title }}</span>
 
@@ -95,9 +95,6 @@ export default {
 				this.hover = false
 			}
 		},
-		onInput(e) {
-			console.log(e)
-		}
 	},
 };
 </script>

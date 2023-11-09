@@ -1,12 +1,17 @@
 <template>
 	<div class="item-container" :class="{ 'hovered': hover }" @mouseover="hover = true" @mouseleave="hover = false" @touchstart="hover = true">
 		<span class="item-title">{{ title }}</span>
-		<input :id="title" type="string" class="input" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
+		<select class="input" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)">
+			<!-- Show loading animation when options list is empty -->
+			<option v-if="options.length === 0" disabled>Loading...</option>
+			
+			<!-- Show actual options when they are available -->
+			<option v-else v-for="option in options" :key="option" :value="option">{{ option }}</option>
+		</select>
 	</div>
 </template>
   
 <script>
-
 export default {
 	props: {
 		title: {
@@ -17,40 +22,23 @@ export default {
 			type: String,
 			default: ""
 		},
+		options: {
+			type: Array,
+			default: () => []
+		}
 	},
-	// mounted() {
-	// 	window.addEventListener('touchstart', this.releaseHover);
-	// },
-	// beforeDestroy() {
-	// 	window.removeEventListener('touchstart', this.releaseHover);
-	// },
 	emits: [
 		'update:modelValue'
 	],
-	watch: {
-
-	},
 	data() {
 		return {
 			hover: false,
 		};
 	},
-	methods: {
-		releaseHover(e) {
-			try {
-				if (e.target.attributes[1].nodeValue != this.title) {
-					this.hover = false
-				}
-			} catch (error) {
-				this.hover = false
-			}
-		},
-	},
 };
 </script>
   
 <style scoped>
-
 .input {
 	flex: 2;
 	appearance: none;
@@ -62,6 +50,7 @@ export default {
 	font-family: 'Maza-Bold', sans-serif;
 	font-size: 2vmax;
 	border: none;
+	line-height: 30px;
 }
 
 @media (orientation: portrait) {
@@ -70,14 +59,11 @@ export default {
 		align-items: flex-start;
 		position: relative;
 	}
-
-	
 	.item-title {
 		width: 100%;
 		flex-basis: 100%;
 		margin-bottom: 10px;
 	}
-
 	.input {
 		width: 100%;
 		flex-basis: 100%;

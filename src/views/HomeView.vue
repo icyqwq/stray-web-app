@@ -9,15 +9,20 @@
           }}</router-link>
         </div>
       </nav>
-      
+      {{ this.device_version }}
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
+
 export default {
   data() {
-    return {};
+    return {
+      device_version: 'fetching...',
+    };
   },
   computed: {
     routes() {
@@ -33,6 +38,16 @@ export default {
   },
   components: {
     
+  },
+  methods: {
+      getDeviceVersion() {
+        axios.get('/device_version').then((response) => {
+          this.device_version = response.data;
+        }).catch((error) => {
+          this.device_version = 'n/a';
+          console.log(error);
+        });
+      }
   },
 };
 </script>
