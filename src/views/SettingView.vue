@@ -9,7 +9,7 @@
     <SliderItem title="SHOCK SENSITIVITY" v-model="config.shock_sensitivity" />
     <TimeInputItem title="WAKE-UP TIME" v-model="config.wakeup_time" />
     <TimeInputItem title="SYSTEM SLEEP TIME" v-model="config.sys_sleep_time" />
-    <DrawerSelectItem title="Wi-Fi NAME" v-model="config.wifi_ssid" @click="onWiFiNameClick" :options="wifi_ssid_options"/>
+    <DrawerSelectItem title="Wi-Fi NAME" v-model="config.wifi_ssid" @click="fetchWiFiSSID" :options="wifi_ssid_options"/>
     <InputItem title="Wi-Fi PASSWORD" v-model="config.wifi_pswd" />
     <TextItem title="Wi-Fi STATUS" :value="config.wifi_status" :valueColor="config.wifi_status_color"/>
     <SelectItem title="TIMEZONE" v-model="config.time_zone" :options="time_zone_options" />
@@ -58,19 +58,41 @@ export default {
   computed: {
 
   },
-  methods: {
-    
-  },
   watch: {
     
   },
   methods: {
-    onWiFiNameClick() {
+    fetchWiFiSSID() {
       this.axios.get('/api/wifi/scan').then((response) => {
         console.log(response)
+        if (response.data.status == "ok") {
+          this.wifi_ssid_options = response.data.ssid;
+        }
       })
+      .catch(error => {
+          console.error('Error fetching the WiFi SSIDs:', error);
+          this.wifi_ssid_options = [];
+        });
+    },
+
+    onWiFiEvent(e) {
+      console.log("wifi ", e.data);
+      if (e.data === 'scan done') {
+        this.fetchWiFiSSID()
+      }
     }
-  }
+  },
+  mounted() {
+    this.fetchWiFiSSID()
+
+    this.source = new EventSource('/events');
+
+    this.source.addEventListener('wifi', this.onWiFiEvent, false);
+  },
+  beforeUnmount() {
+    this.source.close();
+    this.source.removeEventListener('wifi', this.onWiFiEvent, false);
+  },
 };
 </script>
 

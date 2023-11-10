@@ -9,7 +9,7 @@
           }}</router-link>
         </div>
       </nav>
-      {{ this.device_version }}
+      <div style="margin-top: 10px; color: rgba(96, 96, 96, 1);"> {{ this.device_version }} </div>
     </div>
   </div>
 </template>
@@ -49,6 +49,9 @@ export default {
         });
       }
   },
+  mounted() {
+    this.getDeviceVersion();
+  }
 };
 </script>
 
